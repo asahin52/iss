@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISS Manager - Toplu SMS İşlemleri</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-wifi me-2"></i>ISS Manager
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="#"><i class="fas fa-user me-1"></i>Admin</a>
+                <a class="nav-link" href="#"><i class="fas fa-sign-out-alt me-1"></i>Çıkış</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">
+                                <i class="fas fa-home me-2"></i>Anasayfa
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="customer.html">
+                                <i class="fas fa-users me-2"></i>Müşteri İşlemleri
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="support.html">
+                                <i class="fas fa-headset me-2"></i>Destek İşlemleri
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="services.html">
+                                <i class="fas fa-cog me-2"></i>Hizmet İşlemleri
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="billing.html">
+                                <i class="fas fa-file-invoice me-2"></i>Fatura İşlemleri
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="sms.html">
+                                <i class="fas fa-sms me-2"></i>Toplu SMS İşlemleri
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="mikrotik.html">
+                                <i class="fas fa-router me-2"></i>Mikrotik İşlemleri
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Toplu SMS İşlemleri</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <button type="button" class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#sendSmsModal">
+                            <i class="fas fa-paper-plane me-1"></i>SMS Gönder
+                        </button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#templateModal">
+                            <i class="fas fa-plus me-1"></i>Yeni Şablon
+                        </button>
+                    </div>
+                </div>
+
+                <!-- SMS Statistics -->
+                <div class="row mb-4">
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            Bu Ay Gönderilen</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">2,847</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-sms fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            Başarılı Gönderim</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">2,743</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-check-circle fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            Bekleyen</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">64</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-clock fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-danger shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                            Başarısız</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">40</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-times-circle fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Templates -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Hızlı SMS Şablonları</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row" id="smsTemplates">
+                            <!-- Templates will be rendered here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SMS Campaign History -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                        <h6 class="m-0 font-weight-bold text-primary">SMS Kampanya Geçmişi</h6>
+                        <div class="d-flex">
+                            <select class="form-select me-2" id="statusFilter" onchange="filterCampaigns()">
+                                <option value="">Tüm Durumlar</option>
+                                <option value="sent">Gönderildi</option>
+                                <option value="pending">Beklemede</option>
+                                <option value="scheduled">Zamanlanmış</option>
+                                <option value="failed">Başarısız</option>
+                            </select>
+                            <input type="text" class="form-control" id="searchInput" placeholder="Kampanya ara..." onkeyup="filterCampaigns()">
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Kampanya Adı</th>
+                                        <th>Mesaj</th>
+                                        <th>Alıcı Sayısı</th>
+                                        <th>Gönderim Tarihi</th>
+                                        <th>Durum</th>
+                                        <th>Başarı Oranı</th>
+                                        <th>İşlemler</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="campaignTableBody">
+                                    <!-- Campaigns will be rendered here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Send SMS Modal -->
+    <div class="modal fade" id="sendSmsModal" tabindex="-1" aria-labelledby="sendSmsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="sendSmsModalLabel">Toplu SMS Gönder</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="sendSmsForm">
+                        <div class="mb-3">
+                            <label for="campaignName" class="form-label">Kampanya Adı</label>
+                            <input type="text" class="form-control" id="campaignName" required>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="recipientType" class="form-label">Alıcı Grubu</label>
+                                    <select class="form-select" id="recipientType" onchange="updateRecipientCount()" required>
+                                        <option value="">Grup Seçin</option>
+                                        <option value="all">Tüm Müşteriler</option>
+                                        <option value="active">Aktif Müşteriler</option>
+                                        <option value="inactive">Pasif Müşteriler</option>
+                                        <option value="overdue">Geciken Ödemeli Müşteriler</option>
+                                        <option value="fiber">Fiber Müşterileri</option>
+                                        <option value="vdsl">VDSL Müşterileri</option>
+                                        <option value="custom">Özel Liste</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="sendTime" class="form-label">Gönderim Zamanı</label>
+                                    <select class="form-select" id="sendTime" required>
+                                        <option value="now">Şimdi Gönder</option>
+                                        <option value="scheduled">Zamanla</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3" id="scheduledTimeDiv" style="display: none;">
+                            <label for="scheduledTime" class="form-label">Gönderim Tarihi ve Saati</label>
+                            <input type="datetime-local" class="form-control" id="scheduledTime">
+                        </div>
+                        <div class="mb-3">
+                            <label for="smsTemplate" class="form-label">SMS Şablonu</label>
+                            <select class="form-select" id="smsTemplate" onchange="loadTemplate()">
+                                <option value="">Şablon Seçin (İsteğe Bağlı)</option>
+                                <option value="payment_reminder">Ödeme Hatırlatması</option>
+                                <option value="service_info">Hizmet Bilgilendirme</option>
+                                <option value="maintenance">Bakım Bildirimi</option>
+                                <option value="promotion">Promosyon</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="smsMessage" class="form-label">SMS Mesajı</label>
+                            <textarea class="form-control" id="smsMessage" rows="4" maxlength="160" required placeholder="Mesajınızı yazın (max 160 karakter)"></textarea>
+                            <div class="form-text">
+                                <span id="charCount">0</span>/160 karakter
+                                <span class="float-end">Tahmini Alıcı: <strong id="recipientCount">0</strong></span>
+                            </div>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="confirmSend" required>
+                            <label class="form-check-label" for="confirmSend">
+                                SMS gönderimini onaylıyorum
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                    <button type="button" class="btn btn-success" onclick="sendSms()">SMS Gönder</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Template Modal -->
+    <div class="modal fade" id="templateModal" tabindex="-1" aria-labelledby="templateModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="templateModalLabel">Yeni SMS Şablonu</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="templateForm">
+                        <div class="mb-3">
+                            <label for="templateName" class="form-label">Şablon Adı</label>
+                            <input type="text" class="form-control" id="templateName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="templateCategory" class="form-label">Kategori</label>
+                            <select class="form-select" id="templateCategory" required>
+                                <option value="">Kategori Seçin</option>
+                                <option value="payment">Ödeme</option>
+                                <option value="service">Hizmet</option>
+                                <option value="maintenance">Bakım</option>
+                                <option value="promotion">Promosyon</option>
+                                <option value="general">Genel</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="templateContent" class="form-label">Şablon İçeriği</label>
+                            <textarea class="form-control" id="templateContent" rows="4" maxlength="160" required></textarea>
+                            <div class="form-text">
+                                <span id="templateCharCount">0</span>/160 karakter
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                    <button type="button" class="btn btn-primary" onclick="saveTemplate()">Şablonu Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const smsTemplates = [
+            { id: 1, name: 'Ödeme Hatırlatması', category: 'payment', content: 'Sayın {müşteri_adı}, {tarih} tarihli faturanız ödenmemiştir. Lütfen en kısa sürede ödeme yapınız.', active: true },
+            { id: 2, name: 'Hizmet Bilgilendirme', category: 'service', content: 'Sayın {müşteri_adı}, internet hizmetinizle ilgili önemli bir bilgilendirme için 0850 xxx xxxx numarasını arayınız.', active: true },
+            { id: 3, name: 'Bakım Bildirimi', category: 'maintenance', content: 'Sayın {müşteri_adı}, {tarih} tarihinde {saat} saatleri arasında internet hizmetinde bakım çalışması yapılacaktır.', active: true },
+            { id: 4, name: 'Promosyon', category: 'promotion', content: 'Özel fırsat! Fiber internet paketlerimizde %20 indirim. Detaylar için 0850 xxx xxxx.', active: true }
+        ];
+
+        const smsCampaigns = [
+            { name: 'Ocak Ödeme Hatırlatması', message: 'Sayın müşterimiz, Ocak ayı faturanız...', recipients: 245, date: '2024-01-15 10:00', status: 'sent', success: 95 },
+            { name: 'Fiber Promosyon', message: 'Özel fırsat! Fiber internet...', recipients: 1200, date: '2024-01-10 14:30', status: 'sent', success: 98 },
+            { name: 'Bakım Bildirimi', message: 'Bakım çalışması duyurusu...', recipients: 850, date: '2024-01-08 09:00', status: 'sent', success: 97 },
+            { name: 'Yeni Yıl Kutlaması', message: 'Yeni yılınızı kutlar...', recipients: 1500, date: '2024-01-01 00:01', status: 'sent', success: 99 }
+        ];
+
+        function renderSmsTemplates() {
+            const container = document.getElementById('smsTemplates');
+            container.innerHTML = '';
+
+            smsTemplates.forEach(template => {
+                const templateCard = `
+                    <div class="col-md-6 col-lg-4 mb-3">
+                        <div class="card h-100">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h6 class="m-0">${template.name}</h6>
+                                <span class="badge bg-primary">${template.category}</span>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">${template.content.substring(0, 80)}...</p>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between">
+                                <button class="btn btn-sm btn-success" onclick="useTemplate(${template.id})">
+                                    <i class="fas fa-paper-plane me-1"></i>Kullan
+                                </button>
+                                <div>
+                                    <button class="btn btn-sm btn-primary" onclick="editTemplate(${template.id})">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-danger" onclick="deleteTemplate(${template.id})">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += templateCard;
+            });
+        }
+
+        function renderCampaigns(filter = '', statusFilter = '') {
+            const tbody = document.getElementById('campaignTableBody');
+            tbody.innerHTML = '';
+
+            const filteredCampaigns = smsCampaigns.filter(campaign => {
+                const matchesSearch = filter === '' || campaign.name.toLowerCase().includes(filter.toLowerCase());
+                const matchesStatus = statusFilter === '' || campaign.status === statusFilter;
+                return matchesSearch && matchesStatus;
+            });
+
+            filteredCampaigns.forEach(campaign => {
+                const statusBadge = {
+                    'sent': 'bg-success',
+                    'pending': 'bg-warning',
+                    'scheduled': 'bg-info',
+                    'failed': 'bg-danger'
+                }[campaign.status];
+
+                const statusText = {
+                    'sent': 'Gönderildi',
+                    'pending': 'Beklemede',
+                    'scheduled': 'Zamanlanmış',
+                    'failed': 'Başarısız'
+                }[campaign.status];
+
+                const row = `
+                    <tr>
+                        <td>${campaign.name}</td>
+                        <td>${campaign.message.substring(0, 50)}...</td>
+                        <td>${campaign.recipients}</td>
+                        <td>${campaign.date}</td>
+                        <td><span class="badge ${statusBadge}">${statusText}</span></td>
+                        <td>${campaign.success}%</td>
+                        <td>
+                            <button class="btn btn-sm btn-primary" onclick="viewCampaign('${campaign.name}')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn btn-sm btn-info" onclick="duplicateCampaign('${campaign.name}')">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+
+        function filterCampaigns() {
+            const searchFilter = document.getElementById('searchInput').value;
+            const statusFilter = document.getElementById('statusFilter').value;
+            renderCampaigns(searchFilter, statusFilter);
+        }
+
+        function updateRecipientCount() {
+            const recipientType = document.getElementById('recipientType').value;
+            const counts = {
+                'all': 1247,
+                'active': 1089,
+                'inactive': 158,
+                'overdue': 89,
+                'fiber': 856,
+                'vdsl': 391,
+                'custom': 0
+            };
+            document.getElementById('recipientCount').textContent = counts[recipientType] || 0;
+        }
+
+        function loadTemplate() {
+            const templateId = document.getElementById('smsTemplate').value;
+            const templates = {
+                'payment_reminder': 'Sayın {müşteri_adı}, {tarih} tarihli faturanız ödenmemiştir. Lütfen en kısa sürede ödeme yapınız.',
+                'service_info': 'Sayın {müşteri_adı}, internet hizmetinizle ilgili önemli bir bilgilendirme için 0850 xxx xxxx numarasını arayınız.',
+                'maintenance': 'Sayın {müşteri_adı}, {tarih} tarihinde {saat} saatleri arasında internet hizmetinde bakım çalışması yapılacaktır.',
+                'promotion': 'Özel fırsat! Fiber internet paketlerimizde %20 indirim. Detaylar için 0850 xxx xxxx.'
+            };
+            
+            if (templates[templateId]) {
+                document.getElementById('smsMessage').value = templates[templateId];
+                updateCharCount();
+            }
+        }
+
+        function updateCharCount() {
+            const message = document.getElementById('smsMessage').value;
+            document.getElementById('charCount').textContent = message.length;
+        }
+
+        function updateTemplateCharCount() {
+            const content = document.getElementById('templateContent').value;
+            document.getElementById('templateCharCount').textContent = content.length;
+        }
+
+        function sendSms() {
+            const campaignName = document.getElementById('campaignName').value;
+            const recipientType = document.getElementById('recipientType').value;
+            const sendTime = document.getElementById('sendTime').value;
+            const message = document.getElementById('smsMessage').value;
+            const confirmed = document.getElementById('confirmSend').checked;
+
+            if (campaignName && recipientType && message && confirmed) {
+                const recipientCount = document.getElementById('recipientCount').textContent;
+                
+                if (sendTime === 'scheduled') {
+                    const scheduledTime = document.getElementById('scheduledTime').value;
+                    if (!scheduledTime) {
+                        alert('Lütfen gönderim tarihini seçin!');
+                        return;
+                    }
+                }
+
+                // Add to campaigns
+                const newCampaign = {
+                    name: campaignName,
+                    message: message,
+                    recipients: parseInt(recipientCount),
+                    date: sendTime === 'now' ? new Date().toLocaleString('tr-TR') : document.getElementById('scheduledTime').value,
+                    status: sendTime === 'now' ? 'sent' : 'scheduled',
+                    success: sendTime === 'now' ? Math.floor(Math.random() * 10) + 90 : 0
+                };
+
+                smsCampaigns.unshift(newCampaign);
+
+                document.getElementById('sendSmsForm').reset();
+                const modal = bootstrap.Modal.getInstance(document.getElementById('sendSmsModal'));
+                modal.hide();
+                renderCampaigns();
+                updateRecipientCount();
+                
+                alert(`SMS kampanyası "${campaignName}" ${sendTime === 'now' ? 'gönderildi' : 'zamanlandı'}!`);
+            } else {
+                alert('Lütfen tüm gerekli alanları doldurun ve gönderimi onaylayın!');
+            }
+        }
+
+        function saveTemplate() {
+            const name = document.getElementById('templateName').value;
+            const category = document.getElementById('templateCategory').value;
+            const content = document.getElementById('templateContent').value;
+
+            if (name && category && content) {
+                const newId = Math.max(...smsTemplates.map(t => t.id)) + 1;
+                
+                smsTemplates.push({
+                    id: newId,
+                    name: name,
+                    category: category,
+                    content: content,
+                    active: true
+                });
+
+                document.getElementById('templateForm').reset();
+                const modal = bootstrap.Modal.getInstance(document.getElementById('templateModal'));
+                modal.hide();
+                renderSmsTemplates();
+                
+                alert('SMS şablonu başarıyla kaydedildi!');
+            } else {
+                alert('Lütfen tüm alanları doldurun!');
+            }
+        }
+
+        function useTemplate(templateId) {
+            const template = smsTemplates.find(t => t.id === templateId);
+            if (template) {
+                const modal = new bootstrap.Modal(document.getElementById('sendSmsModal'));
+                modal.show();
+                setTimeout(() => {
+                    document.getElementById('smsMessage').value = template.content;
+                    updateCharCount();
+                }, 500);
+            }
+        }
+
+        function editTemplate(templateId) {
+            alert(`Şablon ${templateId} düzenleme özelliği yakında eklenecek.`);
+        }
+
+        function deleteTemplate(templateId) {
+            if (confirm('Bu şablonu silmek istediğinizden emin misiniz?')) {
+                const index = smsTemplates.findIndex(t => t.id === templateId);
+                if (index > -1) {
+                    smsTemplates.splice(index, 1);
+                    renderSmsTemplates();
+                    alert('Şablon silindi.');
+                }
+            }
+        }
+
+        function viewCampaign(campaignName) {
+            const campaign = smsCampaigns.find(c => c.name === campaignName);
+            if (campaign) {
+                alert(`Kampanya Detayları:\nAd: ${campaign.name}\nMesaj: ${campaign.message}\nAlıcı: ${campaign.recipients}\nDurum: ${campaign.status}\nBaşarı: ${campaign.success}%`);
+            }
+        }
+
+        function duplicateCampaign(campaignName) {
+            const campaign = smsCampaigns.find(c => c.name === campaignName);
+            if (campaign) {
+                const modal = new bootstrap.Modal(document.getElementById('sendSmsModal'));
+                modal.show();
+                setTimeout(() => {
+                    document.getElementById('campaignName').value = campaign.name + ' (Kopya)';
+                    document.getElementById('smsMessage').value = campaign.message;
+                    updateCharCount();
+                }, 500);
+            }
+        }
+
+        // Event listeners
+        document.getElementById('sendTime').addEventListener('change', function() {
+            const scheduledDiv = document.getElementById('scheduledTimeDiv');
+            scheduledDiv.style.display = this.value === 'scheduled' ? 'block' : 'none';
+        });
+
+        document.getElementById('smsMessage').addEventListener('input', updateCharCount);
+        document.getElementById('templateContent').addEventListener('input', updateTemplateCharCount);
+
+        // Initialize
+        renderSmsTemplates();
+        renderCampaigns();
+    </script>
+</body>
+</html>
