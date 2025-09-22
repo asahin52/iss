@@ -1,61 +1,343 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Management</title>
-    <style>
-        /* Basic styles for the customer management interface */
-        body { font-family: Arial, sans-serif; }
-        .customer-list { margin-top: 20px; }
-        .customer-item { margin: 5px 0; }
-    </style>
+    <title>ISS Manager - Müşteri İşlemleri</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
 </head>
 <body>
-    <h1>Customer Management Interface</h1>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-wifi me-2"></i>ISS Manager
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="#"><i class="fas fa-user me-1"></i>Admin</a>
+                <a class="nav-link" href="#"><i class="fas fa-sign-out-alt me-1"></i>Çıkış</a>
+            </div>
+        </div>
+    </nav>
 
-    <h2>Add New Customer</h2>
-    <form id="addCustomerForm">
-        <input type="text" id="customerName" placeholder="Customer Name" required>
-        <input type="text" id="customerEmail" placeholder="Customer Email" required>
-        <button type="submit">Add Customer</button>
-    </form>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">
+                                <i class="fas fa-home me-2"></i>Anasayfa
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="customer.html">
+                                <i class="fas fa-users me-2"></i>Müşteri İşlemleri
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="support.html">
+                                <i class="fas fa-headset me-2"></i>Destek İşlemleri
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="services.html">
+                                <i class="fas fa-cog me-2"></i>Hizmet İşlemleri
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="billing.html">
+                                <i class="fas fa-file-invoice me-2"></i>Fatura İşlemleri
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="sms.html">
+                                <i class="fas fa-sms me-2"></i>Toplu SMS İşlemleri
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="mikrotik.html">
+                                <i class="fas fa-router me-2"></i>Mikrotik İşlemleri
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
 
-    <h2>Search Customers</h2>
-    <input type="text" id="searchInput" placeholder="Search by name" onkeyup="searchCustomers()">
+            <!-- Main content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Müşteri İşlemleri</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCustomerModal">
+                            <i class="fas fa-plus me-1"></i>Yeni Müşteri
+                        </button>
+                    </div>
+                </div>
 
-    <div class="customer-list" id="customerList">
-        <h2>Customer List</h2>
-        <!-- Customer items will be dynamically added here -->
+                <!-- Search Section -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Müşteri Arama</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="searchInput" placeholder="Müşteri adı ile ara..." onkeyup="searchCustomers()">
+                            </div>
+                            <div class="col-md-6">
+                                <select class="form-select" id="statusFilter" onchange="filterCustomers()">
+                                    <option value="">Tüm Durumlar</option>
+                                    <option value="active">Aktif</option>
+                                    <option value="inactive">Pasif</option>
+                                    <option value="suspended">Askıya Alınmış</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Customer List -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Müşteri Listesi</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Müşteri Adı</th>
+                                        <th>E-posta</th>
+                                        <th>Telefon</th>
+                                        <th>Paket</th>
+                                        <th>Durum</th>
+                                        <th>İşlemler</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="customerTableBody">
+                                    <tr>
+                                        <td>001</td>
+                                        <td>Ahmet Yılmaz</td>
+                                        <td>ahmet@email.com</td>
+                                        <td>0555 123 4567</td>
+                                        <td>Fiber 50 Mbps</td>
+                                        <td><span class="badge bg-success">Aktif</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-primary" onclick="editCustomer(1)">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-info" onclick="viewCustomer(1)">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>002</td>
+                                        <td>Mehmet Demir</td>
+                                        <td>mehmet@email.com</td>
+                                        <td>0555 234 5678</td>
+                                        <td>VDSL 25 Mbps</td>
+                                        <td><span class="badge bg-warning">Pasif</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-primary" onclick="editCustomer(2)">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-info" onclick="viewCustomer(2)">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>003</td>
+                                        <td>Ayşe Kaya</td>
+                                        <td>ayse@email.com</td>
+                                        <td>0555 345 6789</td>
+                                        <td>Fiber 100 Mbps</td>
+                                        <td><span class="badge bg-success">Aktif</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-primary" onclick="editCustomer(3)">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-info" onclick="viewCustomer(3)">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
     </div>
 
+    <!-- Add Customer Modal -->
+    <div class="modal fade" id="addCustomerModal" tabindex="-1" aria-labelledby="addCustomerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addCustomerModalLabel">Yeni Müşteri Ekle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addCustomerForm">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="customerName" class="form-label">Müşteri Adı</label>
+                                    <input type="text" class="form-control" id="customerName" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="customerEmail" class="form-label">E-posta</label>
+                                    <input type="email" class="form-control" id="customerEmail" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="customerPhone" class="form-label">Telefon</label>
+                                    <input type="tel" class="form-control" id="customerPhone" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="customerPackage" class="form-label">İnternet Paketi</label>
+                                    <select class="form-select" id="customerPackage" required>
+                                        <option value="">Paket Seçin</option>
+                                        <option value="fiber50">Fiber 50 Mbps</option>
+                                        <option value="fiber100">Fiber 100 Mbps</option>
+                                        <option value="vdsl25">VDSL 25 Mbps</option>
+                                        <option value="vdsl50">VDSL 50 Mbps</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="customerAddress" class="form-label">Adres</label>
+                            <textarea class="form-control" id="customerAddress" rows="3" required></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                    <button type="button" class="btn btn-primary" onclick="addCustomer()">Müşteri Ekle</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        const customers = [];
+        const customers = [
+            { id: 1, name: 'Ahmet Yılmaz', email: 'ahmet@email.com', phone: '0555 123 4567', package: 'Fiber 50 Mbps', status: 'active' },
+            { id: 2, name: 'Mehmet Demir', email: 'mehmet@email.com', phone: '0555 234 5678', package: 'VDSL 25 Mbps', status: 'inactive' },
+            { id: 3, name: 'Ayşe Kaya', email: 'ayse@email.com', phone: '0555 345 6789', package: 'Fiber 100 Mbps', status: 'active' }
+        ];
 
-        document.getElementById('addCustomerForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const name = document.getElementById('customerName').value;
-            const email = document.getElementById('customerEmail').value;
-            customers.push({ name, email });
-            document.getElementById('addCustomerForm').reset();
-            renderCustomerList();
-        });
+        function searchCustomers() {
+            const filter = document.getElementById('searchInput').value.toLowerCase();
+            const statusFilter = document.getElementById('statusFilter').value;
+            renderCustomerTable(filter, statusFilter);
+        }
 
-        function renderCustomerList(filter = '') {
-            const list = document.getElementById('customerList');
-            list.innerHTML = '<h2>Customer List</h2>'; // Reset list
-            const filteredCustomers = customers.filter(customer => customer.name.toLowerCase().includes(filter.toLowerCase()));
+        function filterCustomers() {
+            const filter = document.getElementById('searchInput').value.toLowerCase();
+            const statusFilter = document.getElementById('statusFilter').value;
+            renderCustomerTable(filter, statusFilter);
+        }
+
+        function renderCustomerTable(searchFilter = '', statusFilter = '') {
+            const tbody = document.getElementById('customerTableBody');
+            tbody.innerHTML = '';
+            
+            const filteredCustomers = customers.filter(customer => {
+                const matchesSearch = customer.name.toLowerCase().includes(searchFilter);
+                const matchesStatus = statusFilter === '' || customer.status === statusFilter;
+                return matchesSearch && matchesStatus;
+            });
+
             filteredCustomers.forEach(customer => {
-                const item = document.createElement('div');
-                item.className = 'customer-item';
-                item.textContent = `${customer.name} - ${customer.email}`;
-                list.appendChild(item);
+                const statusBadge = customer.status === 'active' ? 'bg-success' : 
+                                   customer.status === 'inactive' ? 'bg-warning' : 'bg-danger';
+                const statusText = customer.status === 'active' ? 'Aktif' : 
+                                  customer.status === 'inactive' ? 'Pasif' : 'Askıya Alınmış';
+                
+                const row = `
+                    <tr>
+                        <td>${customer.id.toString().padStart(3, '0')}</td>
+                        <td>${customer.name}</td>
+                        <td>${customer.email}</td>
+                        <td>${customer.phone}</td>
+                        <td>${customer.package}</td>
+                        <td><span class="badge ${statusBadge}">${statusText}</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-primary" onclick="editCustomer(${customer.id})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-info" onclick="viewCustomer(${customer.id})">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
             });
         }
 
-        function searchCustomers() {
-            const filter = document.getElementById('searchInput').value;
-            renderCustomerList(filter);
+        function addCustomer() {
+            const name = document.getElementById('customerName').value;
+            const email = document.getElementById('customerEmail').value;
+            const phone = document.getElementById('customerPhone').value;
+            const packageType = document.getElementById('customerPackage').value;
+            const address = document.getElementById('customerAddress').value;
+
+            if (name && email && phone && packageType && address) {
+                const newId = Math.max(...customers.map(c => c.id)) + 1;
+                const packageNames = {
+                    'fiber50': 'Fiber 50 Mbps',
+                    'fiber100': 'Fiber 100 Mbps',
+                    'vdsl25': 'VDSL 25 Mbps',
+                    'vdsl50': 'VDSL 50 Mbps'
+                };
+                
+                customers.push({
+                    id: newId,
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    package: packageNames[packageType],
+                    status: 'active'
+                });
+
+                document.getElementById('addCustomerForm').reset();
+                const modal = bootstrap.Modal.getInstance(document.getElementById('addCustomerModal'));
+                modal.hide();
+                renderCustomerTable();
+                
+                alert('Müşteri başarıyla eklendi!');
+            } else {
+                alert('Lütfen tüm alanları doldurun!');
+            }
+        }
+
+        function editCustomer(id) {
+            alert(`Müşteri ${id} düzenleme özelliği yakında eklenecek.`);
+        }
+
+        function viewCustomer(id) {
+            const customer = customers.find(c => c.id === id);
+            if (customer) {
+                alert(`Müşteri Detayları:\nAd: ${customer.name}\nE-posta: ${customer.email}\nTelefon: ${customer.phone}\nPaket: ${customer.package}\nDurum: ${customer.status}`);
+            }
         }
     </script>
 </body>

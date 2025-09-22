@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISS Manager - Mikrotik İşlemleri</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-wifi me-2"></i>ISS Manager
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="#"><i class="fas fa-user me-1"></i>Admin</a>
+                <a class="nav-link" href="#"><i class="fas fa-sign-out-alt me-1"></i>Çıkış</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">
+                                <i class="fas fa-home me-2"></i>Anasayfa
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="customer.html">
+                                <i class="fas fa-users me-2"></i>Müşteri İşlemleri
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="support.html">
+                                <i class="fas fa-headset me-2"></i>Destek İşlemleri
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="services.html">
+                                <i class="fas fa-cog me-2"></i>Hizmet İşlemleri
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="billing.html">
+                                <i class="fas fa-file-invoice me-2"></i>Fatura İşlemleri
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="sms.html">
+                                <i class="fas fa-sms me-2"></i>Toplu SMS İşlemleri
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="mikrotik.html">
+                                <i class="fas fa-router me-2"></i>Mikrotik İşlemleri
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Mikrotik Router İşlemleri</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <button type="button" class="btn btn-success me-2" onclick="refreshAllRouters()">
+                            <i class="fas fa-sync me-1"></i>Tümünü Yenile
+                        </button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRouterModal">
+                            <i class="fas fa-plus me-1"></i>Yeni Router
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Router Statistics -->
+                <div class="row mb-4">
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            Aktif Routerlar</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">12</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-router fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            Toplam Bağlantı</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">1,247</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-users fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-info shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                            Toplam Trafik</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">2.4 TB</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-chart-bar fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            Uyarılar</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">3</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-exclamation-triangle fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Hızlı İşlemler</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <button class="btn btn-outline-primary w-100" onclick="massOperation('reboot')">
+                                    <i class="fas fa-power-off me-2"></i>Toplu Yeniden Başlatma
+                                </button>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <button class="btn btn-outline-info w-100" onclick="massOperation('backup')">
+                                    <i class="fas fa-download me-2"></i>Toplu Yedekleme
+                                </button>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <button class="btn btn-outline-warning w-100" onclick="massOperation('update')">
+                                    <i class="fas fa-upload me-2"></i>Toplu Güncelleme
+                                </button>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <button class="btn btn-outline-success w-100" onclick="massOperation('sync')">
+                                    <i class="fas fa-sync me-2"></i>Toplu Senkronizasyon
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Router List -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                        <h6 class="m-0 font-weight-bold text-primary">Router Listesi</h6>
+                        <div class="d-flex">
+                            <select class="form-select me-2" id="statusFilter" onchange="filterRouters()">
+                                <option value="">Tüm Durumlar</option>
+                                <option value="online">Çevrimiçi</option>
+                                <option value="offline">Çevrimdışı</option>
+                                <option value="warning">Uyarı</option>
+                            </select>
+                            <input type="text" class="form-control" id="searchInput" placeholder="Router ara..." onkeyup="filterRouters()">
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Router Adı</th>
+                                        <th>IP Adresi</th>
+                                        <th>Model</th>
+                                        <th>Durum</th>
+                                        <th>CPU</th>
+                                        <th>RAM</th>
+                                        <th>Aktif Kullanıcı</th>
+                                        <th>Son Güncelleme</th>
+                                        <th>İşlemler</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="routerTableBody">
+                                    <!-- Routers will be rendered here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Active Connections -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Aktif Bağlantılar</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Kullanıcı</th>
+                                        <th>IP Adresi</th>
+                                        <th>MAC Adresi</th>
+                                        <th>Router</th>
+                                        <th>Bağlantı Süresi</th>
+                                        <th>Download</th>
+                                        <th>Upload</th>
+                                        <th>İşlemler</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="connectionTableBody">
+                                    <!-- Connections will be rendered here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Add Router Modal -->
+    <div class="modal fade" id="addRouterModal" tabindex="-1" aria-labelledby="addRouterModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addRouterModalLabel">Yeni Router Ekle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addRouterForm">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="routerName" class="form-label">Router Adı</label>
+                                    <input type="text" class="form-control" id="routerName" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="routerIp" class="form-label">IP Adresi</label>
+                                    <input type="text" class="form-control" id="routerIp" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="routerModel" class="form-label">Model</label>
+                                    <select class="form-select" id="routerModel" required>
+                                        <option value="">Model Seçin</option>
+                                        <option value="RB2011">RB2011UiAS-2HnD</option>
+                                        <option value="RB4011">RB4011iGS+RM</option>
+                                        <option value="CCR1009">CCR1009-7G-1C-1S+</option>
+                                        <option value="CCR1036">CCR1036-12G-4S</option>
+                                        <option value="hEX">hEX RB750Gr3</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="routerLocation" class="form-label">Konum</label>
+                                    <input type="text" class="form-control" id="routerLocation" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="routerUsername" class="form-label">Kullanıcı Adı</label>
+                                    <input type="text" class="form-control" id="routerUsername" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="routerPassword" class="form-label">Şifre</label>
+                                    <input type="password" class="form-control" id="routerPassword" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="routerDescription" class="form-label">Açıklama</label>
+                            <textarea class="form-control" id="routerDescription" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                    <button type="button" class="btn btn-primary" onclick="addRouter()">Router Ekle</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Router Detail Modal -->
+    <div class="modal fade" id="routerDetailModal" tabindex="-1" aria-labelledby="routerDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="routerDetailModalLabel">Router Detayları</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="routerDetailContent">
+                        <!-- Router details will be loaded here -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const routers = [
+            { name: 'Main-Router-01', ip: '192.168.1.1', model: 'CCR1009-7G-1C-1S+', status: 'online', cpu: 15, ram: 45, users: 156, lastUpdate: '2024-01-16 14:30', location: 'Merkez Ofis' },
+            { name: 'Branch-Router-02', ip: '192.168.2.1', model: 'RB4011iGS+RM', status: 'online', cpu: 22, ram: 38, users: 89, lastUpdate: '2024-01-16 14:32', location: 'Şube 1' },
+            { name: 'AP-Router-03', ip: '192.168.3.1', model: 'RB2011UiAS-2HnD', status: 'warning', cpu: 78, ram: 82, users: 45, lastUpdate: '2024-01-16 14:25', location: 'Apartman A' },
+            { name: 'Edge-Router-04', ip: '192.168.4.1', model: 'CCR1036-12G-4S', status: 'online', cpu: 8, ram: 25, users: 234, lastUpdate: '2024-01-16 14:35', location: 'Veri Merkezi' },
+            { name: 'Access-Router-05', ip: '192.168.5.1', model: 'hEX RB750Gr3', status: 'offline', cpu: 0, ram: 0, users: 0, lastUpdate: '2024-01-16 12:15', location: 'Apartman B' }
+        ];
+
+        const activeConnections = [
+            { user: 'Ahmet Yılmaz', ip: '192.168.1.100', mac: '00:11:22:33:44:55', router: 'Main-Router-01', uptime: '2h 15m', download: '45.2 MB', upload: '8.5 MB' },
+            { user: 'Mehmet Demir', ip: '192.168.2.100', mac: '00:11:22:33:44:56', router: 'Branch-Router-02', uptime: '4h 32m', download: '128.7 MB', upload: '22.1 MB' },
+            { user: 'Ayşe Kaya', ip: '192.168.1.101', mac: '00:11:22:33:44:57', router: 'Main-Router-01', uptime: '1h 45m', download: '85.4 MB', upload: '15.2 MB' },
+            { user: 'Fatma Öz', ip: '192.168.3.100', mac: '00:11:22:33:44:58', router: 'AP-Router-03', uptime: '3h 22m', download: '256.8 MB', upload: '45.6 MB' },
+            { user: 'Ali Veli', ip: '192.168.4.100', mac: '00:11:22:33:44:59', router: 'Edge-Router-04', uptime: '6h 18m', download: '512.3 MB', upload: '89.7 MB' }
+        ];
+
+        function filterRouters() {
+            const statusFilter = document.getElementById('statusFilter').value;
+            const searchFilter = document.getElementById('searchInput').value.toLowerCase();
+            
+            renderRouterTable(statusFilter, searchFilter);
+        }
+
+        function renderRouterTable(statusFilter = '', searchFilter = '') {
+            const tbody = document.getElementById('routerTableBody');
+            tbody.innerHTML = '';
+            
+            const filteredRouters = routers.filter(router => {
+                const matchesStatus = statusFilter === '' || router.status === statusFilter;
+                const matchesSearch = searchFilter === '' || 
+                    router.name.toLowerCase().includes(searchFilter) || 
+                    router.ip.includes(searchFilter);
+                return matchesStatus && matchesSearch;
+            });
+
+            filteredRouters.forEach(router => {
+                const statusBadge = {
+                    'online': 'bg-success',
+                    'offline': 'bg-danger',
+                    'warning': 'bg-warning'
+                }[router.status];
+
+                const statusText = {
+                    'online': 'Çevrimiçi',
+                    'offline': 'Çevrimdışı',
+                    'warning': 'Uyarı'
+                }[router.status];
+
+                const cpuClass = router.cpu > 80 ? 'text-danger' : router.cpu > 60 ? 'text-warning' : 'text-success';
+                const ramClass = router.ram > 80 ? 'text-danger' : router.ram > 60 ? 'text-warning' : 'text-success';
+                
+                const row = `
+                    <tr>
+                        <td>${router.name}</td>
+                        <td>${router.ip}</td>
+                        <td>${router.model}</td>
+                        <td><span class="badge ${statusBadge}">${statusText}</span></td>
+                        <td><span class="${cpuClass}">${router.cpu}%</span></td>
+                        <td><span class="${ramClass}">${router.ram}%</span></td>
+                        <td>${router.users}</td>
+                        <td>${router.lastUpdate}</td>
+                        <td>
+                            <button class="btn btn-sm btn-primary" onclick="viewRouterDetail('${router.name}')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn btn-sm btn-info" onclick="routerAction('${router.name}', 'reboot')">
+                                <i class="fas fa-power-off"></i>
+                            </button>
+                            <button class="btn btn-sm btn-warning" onclick="routerAction('${router.name}', 'backup')">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button class="btn btn-sm btn-success" onclick="routerAction('${router.name}', 'connect')">
+                                <i class="fas fa-terminal"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+
+        function renderConnections() {
+            const tbody = document.getElementById('connectionTableBody');
+            tbody.innerHTML = '';
+
+            activeConnections.forEach(conn => {
+                const row = `
+                    <tr>
+                        <td>${conn.user}</td>
+                        <td>${conn.ip}</td>
+                        <td>${conn.mac}</td>
+                        <td>${conn.router}</td>
+                        <td>${conn.uptime}</td>
+                        <td>${conn.download}</td>
+                        <td>${conn.upload}</td>
+                        <td>
+                            <button class="btn btn-sm btn-warning" onclick="disconnectUser('${conn.user}')">
+                                <i class="fas fa-unlink"></i>
+                            </button>
+                            <button class="btn btn-sm btn-info" onclick="viewUserDetail('${conn.user}')">
+                                <i class="fas fa-chart-line"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+
+        function addRouter() {
+            const name = document.getElementById('routerName').value;
+            const ip = document.getElementById('routerIp').value;
+            const model = document.getElementById('routerModel').value;
+            const location = document.getElementById('routerLocation').value;
+            const username = document.getElementById('routerUsername').value;
+            const password = document.getElementById('routerPassword').value;
+            const description = document.getElementById('routerDescription').value;
+
+            if (name && ip && model && location && username && password) {
+                const newRouter = {
+                    name: name,
+                    ip: ip,
+                    model: model,
+                    status: 'offline',
+                    cpu: 0,
+                    ram: 0,
+                    users: 0,
+                    lastUpdate: 'Henüz bağlanılmadı',
+                    location: location,
+                    username: username,
+                    password: password,
+                    description: description
+                };
+
+                routers.push(newRouter);
+
+                document.getElementById('addRouterForm').reset();
+                const modal = bootstrap.Modal.getInstance(document.getElementById('addRouterModal'));
+                modal.hide();
+                renderRouterTable();
+                
+                alert('Router başarıyla eklendi!');
+            } else {
+                alert('Lütfen gerekli alanları doldurun!');
+            }
+        }
+
+        function viewRouterDetail(routerName) {
+            const router = routers.find(r => r.name === routerName);
+            if (router) {
+                const detailContent = `
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Genel Bilgiler</h6>
+                            <table class="table table-sm">
+                                <tr><td><strong>Router Adı:</strong></td><td>${router.name}</td></tr>
+                                <tr><td><strong>IP Adresi:</strong></td><td>${router.ip}</td></tr>
+                                <tr><td><strong>Model:</strong></td><td>${router.model}</td></tr>
+                                <tr><td><strong>Konum:</strong></td><td>${router.location}</td></tr>
+                                <tr><td><strong>Durum:</strong></td><td><span class="badge ${router.status === 'online' ? 'bg-success' : router.status === 'offline' ? 'bg-danger' : 'bg-warning'}">${router.status}</span></td></tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Sistem Kaynakları</h6>
+                            <div class="mb-3">
+                                <label>CPU Kullanımı: ${router.cpu}%</label>
+                                <div class="progress">
+                                    <div class="progress-bar ${router.cpu > 80 ? 'bg-danger' : router.cpu > 60 ? 'bg-warning' : 'bg-success'}" style="width: ${router.cpu}%"></div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label>RAM Kullanımı: ${router.ram}%</label>
+                                <div class="progress">
+                                    <div class="progress-bar ${router.ram > 80 ? 'bg-danger' : router.ram > 60 ? 'bg-warning' : 'bg-success'}" style="width: ${router.ram}%"></div>
+                                </div>
+                            </div>
+                            <p><strong>Aktif Kullanıcı:</strong> ${router.users}</p>
+                            <p><strong>Son Güncelleme:</strong> ${router.lastUpdate}</p>
+                        </div>
+                    </div>
+                `;
+                
+                document.getElementById('routerDetailContent').innerHTML = detailContent;
+                const modal = new bootstrap.Modal(document.getElementById('routerDetailModal'));
+                modal.show();
+            }
+        }
+
+        function routerAction(routerName, action) {
+            const actionTexts = {
+                'reboot': 'yeniden başlatılacak',
+                'backup': 'yedeklenecek',
+                'connect': 'bağlantı açılacak'
+            };
+
+            if (confirm(`${routerName} router\'ı ${actionTexts[action]}. Devam etmek istediğinizden emin misiniz?`)) {
+                alert(`${routerName} için ${action} işlemi başlatıldı.`);
+                // Here you would implement the actual router operations
+            }
+        }
+
+        function massOperation(operation) {
+            const operationTexts = {
+                'reboot': 'Tüm routerları yeniden başlat',
+                'backup': 'Tüm routerları yedekle',
+                'update': 'Tüm routerları güncelle',
+                'sync': 'Tüm routerları senkronize et'
+            };
+
+            if (confirm(`${operationTexts[operation]} işlemini yapmak istediğinizden emin misiniz?`)) {
+                alert(`${operationTexts[operation]} işlemi başlatıldı.`);
+            }
+        }
+
+        function refreshAllRouters() {
+            alert('Tüm routerlar yenileniyor...');
+            // Simulate refresh
+            setTimeout(() => {
+                renderRouterTable();
+                alert('Tüm routerlar başarıyla yenilendi!');
+            }, 2000);
+        }
+
+        function disconnectUser(userName) {
+            if (confirm(`${userName} kullanıcısının bağlantısını kesmek istediğinizden emin misiniz?`)) {
+                const index = activeConnections.findIndex(conn => conn.user === userName);
+                if (index > -1) {
+                    activeConnections.splice(index, 1);
+                    renderConnections();
+                    alert(`${userName} bağlantısı kesildi.`);
+                }
+            }
+        }
+
+        function viewUserDetail(userName) {
+            const connection = activeConnections.find(conn => conn.user === userName);
+            if (connection) {
+                alert(`Kullanıcı Detayları:\nAd: ${connection.user}\nIP: ${connection.ip}\nMAC: ${connection.mac}\nRouter: ${connection.router}\nBağlantı Süresi: ${connection.uptime}\nDownload: ${connection.download}\nUpload: ${connection.upload}`);
+            }
+        }
+
+        // Initialize
+        renderRouterTable();
+        renderConnections();
+
+        // Auto refresh every 30 seconds
+        setInterval(() => {
+            // Simulate data updates
+            routers.forEach(router => {
+                if (router.status === 'online') {
+                    router.cpu = Math.floor(Math.random() * 30) + 10;
+                    router.ram = Math.floor(Math.random() * 40) + 20;
+                    router.lastUpdate = new Date().toLocaleString('tr-TR');
+                }
+            });
+            renderRouterTable();
+        }, 30000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISS Manager - Destek İşlemleri</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-wifi me-2"></i>ISS Manager
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="#"><i class="fas fa-user me-1"></i>Admin</a>
+                <a class="nav-link" href="#"><i class="fas fa-sign-out-alt me-1"></i>Çıkış</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">
+                                <i class="fas fa-home me-2"></i>Anasayfa
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="customer.html">
+                                <i class="fas fa-users me-2"></i>Müşteri İşlemleri
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="support.html">
+                                <i class="fas fa-headset me-2"></i>Destek İşlemleri
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="services.html">
+                                <i class="fas fa-cog me-2"></i>Hizmet İşlemleri
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="billing.html">
+                                <i class="fas fa-file-invoice me-2"></i>Fatura İşlemleri
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="sms.html">
+                                <i class="fas fa-sms me-2"></i>Toplu SMS İşlemleri
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="mikrotik.html">
+                                <i class="fas fa-router me-2"></i>Mikrotik İşlemleri
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Destek İşlemleri</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newTicketModal">
+                            <i class="fas fa-plus me-1"></i>Yeni Ticket
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Support Statistics -->
+                <div class="row mb-4">
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            Açık Ticketlar</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">23</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-ticket-alt fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            Bekleyen</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">8</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-clock fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-info shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                            İşlemde</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">12</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-cogs fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            Çözümlenen</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">156</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-check-circle fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filters -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Ticket Filtreleme</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <select class="form-select" id="statusFilter" onchange="filterTickets()">
+                                    <option value="">Tüm Durumlar</option>
+                                    <option value="open">Açık</option>
+                                    <option value="pending">Bekleyen</option>
+                                    <option value="in-progress">İşlemde</option>
+                                    <option value="resolved">Çözümlenen</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-select" id="priorityFilter" onchange="filterTickets()">
+                                    <option value="">Tüm Öncelikler</option>
+                                    <option value="low">Düşük</option>
+                                    <option value="medium">Orta</option>
+                                    <option value="high">Yüksek</option>
+                                    <option value="critical">Kritik</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="searchInput" placeholder="Ticket başlığı veya müşteri adı ile ara..." onkeyup="filterTickets()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Support Tickets -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Destek Ticketları</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Ticket ID</th>
+                                        <th>Müşteri</th>
+                                        <th>Başlık</th>
+                                        <th>Öncelik</th>
+                                        <th>Durum</th>
+                                        <th>Oluşturma Tarihi</th>
+                                        <th>İşlemler</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ticketTableBody">
+                                    <tr>
+                                        <td>#T001</td>
+                                        <td>Ahmet Yılmaz</td>
+                                        <td>İnternet Bağlantı Sorunu</td>
+                                        <td><span class="badge bg-danger">Yüksek</span></td>
+                                        <td><span class="badge bg-info">İşlemde</span></td>
+                                        <td>2024-01-15 10:30</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-primary" onclick="viewTicket('T001')">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-success" onclick="updateTicketStatus('T001', 'resolved')">
+                                                <i class="fas fa-check"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>#T002</td>
+                                        <td>Mehmet Demir</td>
+                                        <td>Paket Değişikliği Talebi</td>
+                                        <td><span class="badge bg-warning">Orta</span></td>
+                                        <td><span class="badge bg-warning">Bekleyen</span></td>
+                                        <td>2024-01-15 14:20</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-primary" onclick="viewTicket('T002')">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-info" onclick="updateTicketStatus('T002', 'in-progress')">
+                                                <i class="fas fa-play"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>#T003</td>
+                                        <td>Ayşe Kaya</td>
+                                        <td>Modem Değişim Talebi</td>
+                                        <td><span class="badge bg-secondary">Düşük</span></td>
+                                        <td><span class="badge bg-primary">Açık</span></td>
+                                        <td>2024-01-16 09:15</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-primary" onclick="viewTicket('T003')">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-info" onclick="updateTicketStatus('T003', 'in-progress')">
+                                                <i class="fas fa-play"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- New Ticket Modal -->
+    <div class="modal fade" id="newTicketModal" tabindex="-1" aria-labelledby="newTicketModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newTicketModalLabel">Yeni Destek Ticket'i</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="newTicketForm">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="ticketCustomer" class="form-label">Müşteri</label>
+                                    <select class="form-select" id="ticketCustomer" required>
+                                        <option value="">Müşteri Seçin</option>
+                                        <option value="ahmet">Ahmet Yılmaz</option>
+                                        <option value="mehmet">Mehmet Demir</option>
+                                        <option value="ayse">Ayşe Kaya</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="ticketPriority" class="form-label">Öncelik</label>
+                                    <select class="form-select" id="ticketPriority" required>
+                                        <option value="">Öncelik Seçin</option>
+                                        <option value="low">Düşük</option>
+                                        <option value="medium">Orta</option>
+                                        <option value="high">Yüksek</option>
+                                        <option value="critical">Kritik</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="ticketTitle" class="form-label">Ticket Başlığı</label>
+                            <input type="text" class="form-control" id="ticketTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="ticketDescription" class="form-label">Açıklama</label>
+                            <textarea class="form-control" id="ticketDescription" rows="4" required></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                    <button type="button" class="btn btn-primary" onclick="createTicket()">Ticket Oluştur</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const tickets = [
+            { id: 'T001', customer: 'Ahmet Yılmaz', title: 'İnternet Bağlantı Sorunu', priority: 'high', status: 'in-progress', date: '2024-01-15 10:30' },
+            { id: 'T002', customer: 'Mehmet Demir', title: 'Paket Değişikliği Talebi', priority: 'medium', status: 'pending', date: '2024-01-15 14:20' },
+            { id: 'T003', customer: 'Ayşe Kaya', title: 'Modem Değişim Talebi', priority: 'low', status: 'open', date: '2024-01-16 09:15' }
+        ];
+
+        function filterTickets() {
+            const statusFilter = document.getElementById('statusFilter').value;
+            const priorityFilter = document.getElementById('priorityFilter').value;
+            const searchFilter = document.getElementById('searchInput').value.toLowerCase();
+            
+            renderTicketTable(statusFilter, priorityFilter, searchFilter);
+        }
+
+        function renderTicketTable(statusFilter = '', priorityFilter = '', searchFilter = '') {
+            const tbody = document.getElementById('ticketTableBody');
+            tbody.innerHTML = '';
+            
+            const filteredTickets = tickets.filter(ticket => {
+                const matchesStatus = statusFilter === '' || ticket.status === statusFilter;
+                const matchesPriority = priorityFilter === '' || ticket.priority === priorityFilter;
+                const matchesSearch = searchFilter === '' || 
+                    ticket.title.toLowerCase().includes(searchFilter) || 
+                    ticket.customer.toLowerCase().includes(searchFilter);
+                return matchesStatus && matchesPriority && matchesSearch;
+            });
+
+            filteredTickets.forEach(ticket => {
+                const priorityBadge = {
+                    'low': 'bg-secondary',
+                    'medium': 'bg-warning',
+                    'high': 'bg-danger',
+                    'critical': 'bg-dark'
+                }[ticket.priority];
+
+                const priorityText = {
+                    'low': 'Düşük',
+                    'medium': 'Orta', 
+                    'high': 'Yüksek',
+                    'critical': 'Kritik'
+                }[ticket.priority];
+
+                const statusBadge = {
+                    'open': 'bg-primary',
+                    'pending': 'bg-warning',
+                    'in-progress': 'bg-info',
+                    'resolved': 'bg-success'
+                }[ticket.status];
+
+                const statusText = {
+                    'open': 'Açık',
+                    'pending': 'Bekleyen',
+                    'in-progress': 'İşlemde',
+                    'resolved': 'Çözümlenen'
+                }[ticket.status];
+                
+                const row = `
+                    <tr>
+                        <td>#${ticket.id}</td>
+                        <td>${ticket.customer}</td>
+                        <td>${ticket.title}</td>
+                        <td><span class="badge ${priorityBadge}">${priorityText}</span></td>
+                        <td><span class="badge ${statusBadge}">${statusText}</span></td>
+                        <td>${ticket.date}</td>
+                        <td>
+                            <button class="btn btn-sm btn-primary" onclick="viewTicket('${ticket.id}')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            ${ticket.status !== 'resolved' ? `
+                            <button class="btn btn-sm btn-success" onclick="updateTicketStatus('${ticket.id}', 'resolved')">
+                                <i class="fas fa-check"></i>
+                            </button>
+                            ` : ''}
+                        </td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+
+        function createTicket() {
+            const customer = document.getElementById('ticketCustomer').value;
+            const priority = document.getElementById('ticketPriority').value;
+            const title = document.getElementById('ticketTitle').value;
+            const description = document.getElementById('ticketDescription').value;
+
+            if (customer && priority && title && description) {
+                const newId = 'T' + (tickets.length + 1).toString().padStart(3, '0');
+                const customerNames = {
+                    'ahmet': 'Ahmet Yılmaz',
+                    'mehmet': 'Mehmet Demir',
+                    'ayse': 'Ayşe Kaya'
+                };
+                
+                tickets.push({
+                    id: newId,
+                    customer: customerNames[customer],
+                    title: title,
+                    priority: priority,
+                    status: 'open',
+                    date: new Date().toLocaleString('tr-TR')
+                });
+
+                document.getElementById('newTicketForm').reset();
+                const modal = bootstrap.Modal.getInstance(document.getElementById('newTicketModal'));
+                modal.hide();
+                renderTicketTable();
+                
+                alert('Ticket başarıyla oluşturuldu!');
+            } else {
+                alert('Lütfen tüm alanları doldurun!');
+            }
+        }
+
+        function viewTicket(id) {
+            const ticket = tickets.find(t => t.id === id);
+            if (ticket) {
+                alert(`Ticket Detayları:\nID: ${ticket.id}\nMüşteri: ${ticket.customer}\nBaşlık: ${ticket.title}\nÖncelik: ${ticket.priority}\nDurum: ${ticket.status}\nTarih: ${ticket.date}`);
+            }
+        }
+
+        function updateTicketStatus(id, newStatus) {
+            const ticket = tickets.find(t => t.id === id);
+            if (ticket) {
+                ticket.status = newStatus;
+                renderTicketTable();
+                alert(`Ticket ${id} durumu güncellendi.`);
+            }
+        }
+
+        // Initialize table
+        renderTicketTable();
+    </script>
+</body>
+</html>

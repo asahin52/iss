@@ -18,24 +18,62 @@ function updateStatisticsUI(data) {
     // Update other statistics as needed
 }
 
-// Function to initialize chart
-function initializeChart(data) {
-    const ctx = document.getElementById('myChart').getContext('2d');
-    const myChart = new Chart(ctx, {
+// Function to initialize customer chart
+function initializeCustomerChart() {
+    const ctx = document.getElementById('customerChart');
+    if (!ctx) return;
+    
+    new Chart(ctx, {
         type: 'line',
         data: {
-            labels: data.labels,
+            labels: ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran'],
             datasets: [{
-                label: 'Statistics over Time',
-                data: data.values,
+                label: 'Yeni Müşteriler',
+                data: [65, 59, 80, 81, 56, 85],
+                borderColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderWidth: 2,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
+// Function to initialize revenue chart
+function initializeRevenueChart() {
+    const ctx = document.getElementById('revenueChart');
+    if (!ctx) return;
+    
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran'],
+            datasets: [{
+                label: 'Gelir (₺)',
+                data: [235000, 289000, 321000, 267000, 298000, 342000],
+                backgroundColor: 'rgba(75, 192, 192, 0.8)',
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 1
             }]
         },
         options: {
+            responsive: true,
             scales: {
                 y: {
-                    beginAtZero: true
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value) {
+                            return '₺' + value.toLocaleString();
+                        }
+                    }
                 }
             }
         }
@@ -48,11 +86,11 @@ function manageISP(action) {
     console.log(`Managing ISP with action: ${action}`);
 }
 
-// Set up periodic data fetching
-setInterval(fetchRealTimeStatistics, 5000); // Fetch every 5 seconds
-
-// Initialize chart with example data
-initializeChart({
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    values: [65, 59, 80, 81, 56, 55, 40]
+// Initialize charts when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    initializeCustomerChart();
+    initializeRevenueChart();
 });
+
+// Set up periodic data fetching
+setInterval(fetchRealTimeStatistics, 30000); // Fetch every 30 seconds
