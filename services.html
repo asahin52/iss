@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISS Manager - Hizmet İşlemleri</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-wifi me-2"></i>ISS Manager
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="#"><i class="fas fa-user me-1"></i>Admin</a>
+                <a class="nav-link" href="#"><i class="fas fa-sign-out-alt me-1"></i>Çıkış</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">
+                                <i class="fas fa-home me-2"></i>Anasayfa
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="customer.html">
+                                <i class="fas fa-users me-2"></i>Müşteri İşlemleri
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="support.html">
+                                <i class="fas fa-headset me-2"></i>Destek İşlemleri
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="services.html">
+                                <i class="fas fa-cog me-2"></i>Hizmet İşlemleri
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="billing.html">
+                                <i class="fas fa-file-invoice me-2"></i>Fatura İşlemleri
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="sms.html">
+                                <i class="fas fa-sms me-2"></i>Toplu SMS İşlemleri
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="mikrotik.html">
+                                <i class="fas fa-router me-2"></i>Mikrotik İşlemleri
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Hizmet İşlemleri</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newServiceModal">
+                            <i class="fas fa-plus me-1"></i>Yeni Hizmet Paketi
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Service Statistics -->
+                <div class="row mb-4">
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            Aktif Hizmetler</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">8</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-cogs fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            Fiber Hizmetler</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">5</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-ethernet fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            VDSL Hizmetler</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">3</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-phone fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-info shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                            Toplam Abonelik</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">1,247</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-users fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Packages -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Hizmet Paketleri</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row" id="servicePackages">
+                            <!-- Service packages will be rendered here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Subscriptions -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                        <h6 class="m-0 font-weight-bold text-primary">Hizmet Abonelikleri</h6>
+                        <div class="d-flex">
+                            <input type="text" class="form-control me-2" id="searchSubscriptions" placeholder="Müşteri ara..." onkeyup="filterSubscriptions()">
+                            <select class="form-select" id="packageFilter" onchange="filterSubscriptions()">
+                                <option value="">Tüm Paketler</option>
+                                <option value="fiber50">Fiber 50 Mbps</option>
+                                <option value="fiber100">Fiber 100 Mbps</option>
+                                <option value="fiber200">Fiber 200 Mbps</option>
+                                <option value="vdsl25">VDSL 25 Mbps</option>
+                                <option value="vdsl50">VDSL 50 Mbps</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Müşteri</th>
+                                        <th>Hizmet Paketi</th>
+                                        <th>Başlangıç Tarihi</th>
+                                        <th>Aylık Ücret</th>
+                                        <th>Durum</th>
+                                        <th>İşlemler</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="subscriptionTableBody">
+                                    <!-- Subscriptions will be rendered here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- New Service Modal -->
+    <div class="modal fade" id="newServiceModal" tabindex="-1" aria-labelledby="newServiceModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newServiceModalLabel">Yeni Hizmet Paketi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="newServiceForm">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="serviceName" class="form-label">Hizmet Adı</label>
+                                    <input type="text" class="form-control" id="serviceName" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="serviceType" class="form-label">Hizmet Türü</label>
+                                    <select class="form-select" id="serviceType" required>
+                                        <option value="">Tür Seçin</option>
+                                        <option value="fiber">Fiber</option>
+                                        <option value="vdsl">VDSL</option>
+                                        <option value="adsl">ADSL</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="serviceSpeed" class="form-label">Hız (Mbps)</label>
+                                    <input type="number" class="form-control" id="serviceSpeed" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="servicePrice" class="form-label">Aylık Ücret (₺)</label>
+                                    <input type="number" class="form-control" id="servicePrice" step="0.01" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="serviceDescription" class="form-label">Açıklama</label>
+                            <textarea class="form-control" id="serviceDescription" rows="3"></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="serviceActive" checked>
+                                    <label class="form-check-label" for="serviceActive">
+                                        Aktif
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="serviceFeatured">
+                                    <label class="form-check-label" for="serviceFeatured">
+                                        Öne Çıkan Paket
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                    <button type="button" class="btn btn-primary" onclick="createService()">Hizmet Oluştur</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const servicePackages = [
+            { id: 1, name: 'Fiber 50 Mbps', type: 'fiber', speed: 50, price: 149.99, description: 'Ev kullanımı için ideal fiber internet paketi', active: true, featured: false },
+            { id: 2, name: 'Fiber 100 Mbps', type: 'fiber', speed: 100, price: 199.99, description: 'Orta büyüklükteki işletmeler için uygun', active: true, featured: true },
+            { id: 3, name: 'Fiber 200 Mbps', type: 'fiber', speed: 200, price: 299.99, description: 'Yoğun internet kullanımı için premium paket', active: true, featured: false },
+            { id: 4, name: 'VDSL 25 Mbps', type: 'vdsl', speed: 25, price: 89.99, description: 'Ekonomik VDSL paketi', active: true, featured: false },
+            { id: 5, name: 'VDSL 50 Mbps', type: 'vdsl', speed: 50, price: 129.99, description: 'Gelişmiş VDSL paketi', active: true, featured: false }
+        ];
+
+        const subscriptions = [
+            { customer: 'Ahmet Yılmaz', package: 'Fiber 50 Mbps', startDate: '2023-12-01', price: 149.99, status: 'active' },
+            { customer: 'Mehmet Demir', package: 'VDSL 25 Mbps', startDate: '2024-01-15', price: 89.99, status: 'active' },
+            { customer: 'Ayşe Kaya', package: 'Fiber 100 Mbps', startDate: '2023-11-10', price: 199.99, status: 'active' },
+            { customer: 'Fatma Öz', package: 'Fiber 200 Mbps', startDate: '2024-01-01', price: 299.99, status: 'suspended' },
+            { customer: 'Ali Veli', package: 'VDSL 50 Mbps', startDate: '2023-12-20', price: 129.99, status: 'active' }
+        ];
+
+        function renderServicePackages() {
+            const container = document.getElementById('servicePackages');
+            container.innerHTML = '';
+
+            servicePackages.forEach(service => {
+                const featuredBadge = service.featured ? '<span class="badge bg-warning">Öne Çıkan</span>' : '';
+                const statusBadge = service.active ? '<span class="badge bg-success">Aktif</span>' : '<span class="badge bg-secondary">Pasif</span>';
+                
+                const serviceCard = `
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100 ${service.featured ? 'border-warning' : ''}">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h6 class="m-0">${service.name}</h6>
+                                ${featuredBadge}
+                            </div>
+                            <div class="card-body">
+                                <h4 class="text-primary">₺${service.price}</h4>
+                                <p class="text-muted">Aylık</p>
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-check text-success me-2"></i>${service.speed} Mbps Hız</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>${service.type.toUpperCase()} Teknoloji</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>7/24 Teknik Destek</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Ücretsiz Kurulum</li>
+                                </ul>
+                                <p class="card-text">${service.description}</p>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between align-items-center">
+                                ${statusBadge}
+                                <div>
+                                    <button class="btn btn-sm btn-primary" onclick="editService(${service.id})">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-danger" onclick="deleteService(${service.id})">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += serviceCard;
+            });
+        }
+
+        function renderSubscriptions(filter = '', packageFilter = '') {
+            const tbody = document.getElementById('subscriptionTableBody');
+            tbody.innerHTML = '';
+
+            const filteredSubscriptions = subscriptions.filter(sub => {
+                const matchesSearch = filter === '' || sub.customer.toLowerCase().includes(filter.toLowerCase());
+                const matchesPackage = packageFilter === '' || sub.package.toLowerCase().includes(packageFilter.toLowerCase());
+                return matchesSearch && matchesPackage;
+            });
+
+            filteredSubscriptions.forEach(sub => {
+                const statusBadge = sub.status === 'active' ? 'bg-success' : 
+                                   sub.status === 'suspended' ? 'bg-warning' : 'bg-danger';
+                const statusText = sub.status === 'active' ? 'Aktif' : 
+                                  sub.status === 'suspended' ? 'Askıya Alınmış' : 'Pasif';
+
+                const row = `
+                    <tr>
+                        <td>${sub.customer}</td>
+                        <td>${sub.package}</td>
+                        <td>${sub.startDate}</td>
+                        <td>₺${sub.price}</td>
+                        <td><span class="badge ${statusBadge}">${statusText}</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-primary" onclick="editSubscription('${sub.customer}')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-info" onclick="viewSubscription('${sub.customer}')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+
+        function filterSubscriptions() {
+            const searchFilter = document.getElementById('searchSubscriptions').value;
+            const packageFilter = document.getElementById('packageFilter').value;
+            renderSubscriptions(searchFilter, packageFilter);
+        }
+
+        function createService() {
+            const name = document.getElementById('serviceName').value;
+            const type = document.getElementById('serviceType').value;
+            const speed = document.getElementById('serviceSpeed').value;
+            const price = document.getElementById('servicePrice').value;
+            const description = document.getElementById('serviceDescription').value;
+            const active = document.getElementById('serviceActive').checked;
+            const featured = document.getElementById('serviceFeatured').checked;
+
+            if (name && type && speed && price) {
+                const newId = Math.max(...servicePackages.map(s => s.id)) + 1;
+                
+                servicePackages.push({
+                    id: newId,
+                    name: name,
+                    type: type,
+                    speed: parseInt(speed),
+                    price: parseFloat(price),
+                    description: description,
+                    active: active,
+                    featured: featured
+                });
+
+                document.getElementById('newServiceForm').reset();
+                const modal = bootstrap.Modal.getInstance(document.getElementById('newServiceModal'));
+                modal.hide();
+                renderServicePackages();
+                
+                alert('Hizmet paketi başarıyla oluşturuldu!');
+            } else {
+                alert('Lütfen gerekli alanları doldurun!');
+            }
+        }
+
+        function editService(id) {
+            const service = servicePackages.find(s => s.id === id);
+            if (service) {
+                alert(`${service.name} düzenleme özelliği yakında eklenecek.`);
+            }
+        }
+
+        function deleteService(id) {
+            if (confirm('Bu hizmet paketini silmek istediğinizden emin misiniz?')) {
+                const index = servicePackages.findIndex(s => s.id === id);
+                if (index > -1) {
+                    servicePackages.splice(index, 1);
+                    renderServicePackages();
+                    alert('Hizmet paketi silindi.');
+                }
+            }
+        }
+
+        function editSubscription(customer) {
+            alert(`${customer} abonelik düzenleme özelliği yakında eklenecek.`);
+        }
+
+        function viewSubscription(customer) {
+            const subscription = subscriptions.find(s => s.customer === customer);
+            if (subscription) {
+                alert(`Abonelik Detayları:\nMüşteri: ${subscription.customer}\nPaket: ${subscription.package}\nBaşlangıç: ${subscription.startDate}\nÜcret: ₺${subscription.price}\nDurum: ${subscription.status}`);
+            }
+        }
+
+        // Initialize
+        renderServicePackages();
+        renderSubscriptions();
+    </script>
+</body>
+</html>
