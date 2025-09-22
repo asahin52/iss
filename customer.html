@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Management</title>
+    <style>
+        /* Basic styles for the customer management interface */
+        body { font-family: Arial, sans-serif; }
+        .customer-list { margin-top: 20px; }
+        .customer-item { margin: 5px 0; }
+    </style>
+</head>
+<body>
+    <h1>Customer Management Interface</h1>
+
+    <h2>Add New Customer</h2>
+    <form id="addCustomerForm">
+        <input type="text" id="customerName" placeholder="Customer Name" required>
+        <input type="text" id="customerEmail" placeholder="Customer Email" required>
+        <button type="submit">Add Customer</button>
+    </form>
+
+    <h2>Search Customers</h2>
+    <input type="text" id="searchInput" placeholder="Search by name" onkeyup="searchCustomers()">
+
+    <div class="customer-list" id="customerList">
+        <h2>Customer List</h2>
+        <!-- Customer items will be dynamically added here -->
+    </div>
+
+    <script>
+        const customers = [];
+
+        document.getElementById('addCustomerForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('customerName').value;
+            const email = document.getElementById('customerEmail').value;
+            customers.push({ name, email });
+            document.getElementById('addCustomerForm').reset();
+            renderCustomerList();
+        });
+
+        function renderCustomerList(filter = '') {
+            const list = document.getElementById('customerList');
+            list.innerHTML = '<h2>Customer List</h2>'; // Reset list
+            const filteredCustomers = customers.filter(customer => customer.name.toLowerCase().includes(filter.toLowerCase()));
+            filteredCustomers.forEach(customer => {
+                const item = document.createElement('div');
+                item.className = 'customer-item';
+                item.textContent = `${customer.name} - ${customer.email}`;
+                list.appendChild(item);
+            });
+        }
+
+        function searchCustomers() {
+            const filter = document.getElementById('searchInput').value;
+            renderCustomerList(filter);
+        }
+    </script>
+</body>
+</html>
